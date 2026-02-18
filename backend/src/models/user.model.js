@@ -12,26 +12,34 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     password: {
-      type:String,
+      type: String,
       required: true,
       minlength: 6,
     },
     profilePic: {
       type: String,
       default: "",
-     },
+    },
     lastSeen: {
       type: Date,
       default: Date.now
-}
+    },
+    resetOtp: {
+      type: String,
+      default: null,
+    },
+    resetOtpExpiry: {
+      type: Date,
+      default: null,
+    },
 
   },
-  {timestamps: true}
+  { timestamps: true }
 );
 
 userSchema.index(
   { lastSeen: 1 },
-  { expireAfterSeconds: 604800 } 
+  { expireAfterSeconds: 604800 }
 );
 
 

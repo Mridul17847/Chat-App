@@ -121,6 +121,15 @@ const LoginPage = () => {
                 "Sign In"
               )}
             </button>
+
+            <div className="text-center">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-base-content/60 hover:text-primary transition-colors"
+              >
+                Forgot password?
+              </Link>
+            </div>
           </form>
 
           <div className="text-center pt-4">
