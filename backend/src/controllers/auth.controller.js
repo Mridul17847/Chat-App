@@ -28,7 +28,6 @@ export const signup = async (req, res) => {
       password: hashedPassword
     })
 
-    //generate jwt token 
     generateToken(newUser.id, res)
     await newUser.save();
 
@@ -117,23 +116,18 @@ export const forgotPassword = async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      // Return success anyway to prevent email enumeration
       return res.status(200).json({ message: "If that email exists, an OTP has been sent" });
     }
 
-    // Generate 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Hash OTP before storing
     const salt = await bycrypt.genSalt(10);
     const hashedOtp = await bycrypt.hash(otp, salt);
 
-    // Save hashed OTP + expiry (10 minutes)
     user.resetOtp = hashedOtp;
     user.resetOtpExpiry = new Date(Date.now() + 10 * 60 * 1000);
     await user.save();
 
-    // Send OTP email
     await sendEmail({
       to: email,
       subject: "Your Password Reset OTP",
@@ -170,7 +164,6 @@ export const resetPassword = async (req, res) => {
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
-    // Check expiry
     if (user.resetOtpExpiry < new Date()) {
       user.resetOtp = null;
       user.resetOtpExpiry = null;
@@ -178,13 +171,11 @@ export const resetPassword = async (req, res) => {
       return res.status(400).json({ message: "OTP has expired. Please request a new one." });
     }
 
-    // Verify OTP
     const isMatch = await bycrypt.compare(otp, user.resetOtp);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid OTP" });
     }
 
-    // Hash new password
     const salt = await bycrypt.genSalt(10);
     user.password = await bycrypt.hash(password, salt);
     user.resetOtp = null;
