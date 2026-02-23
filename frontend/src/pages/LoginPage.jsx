@@ -12,14 +12,12 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // basic validation
     if (!formData.email.trim() || !formData.password) return;
     login(formData);
   };
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
-      {/* Left Section */}
       <div
         className="flex flex-col justify-center items-center p-6 sm:p-12 bg-gradient-to-br
        from-base-100 via-base-100 to-base-200 relative overflow-hidden"
@@ -145,8 +143,6 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-
-      {/* Right Section */}
       <AuthImagePattern
         title="Welcome back"
         subtitle="Good to see you again — connect with your friends."
