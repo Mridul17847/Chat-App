@@ -12,24 +12,16 @@ const MessageInput = () => {
 
   const { sendMessage, selectedUser } = useChatStore();
   const { socket } = useAuthStore();
-
-  // ✅ Typing Handler
   const handleTyping = (value) => {
     setText(value);
 
     if (!socket || !selectedUser) return;
-
-    // Emit typing
     socket.emit("typing", {
       receiverId: selectedUser._id,
     });
-
-    // Clear previous timeout
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current);
     }
-
-    // Stop typing after 1.5 seconds
     typingTimeoutRef.current = setTimeout(() => {
       socket.emit("stopTyping", {
         receiverId: selectedUser._id,
@@ -66,7 +58,6 @@ const MessageInput = () => {
         image: imagePreview,
       });
 
-      // ✅ Stop typing immediately on send
       if (socket && selectedUser) {
         socket.emit("stopTyping", {
           receiverId: selectedUser._id,
