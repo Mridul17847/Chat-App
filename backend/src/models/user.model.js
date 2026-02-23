@@ -37,10 +37,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.index(
-  { lastSeen: 1 },
-  { expireAfterSeconds: 604800 }
-);
+
 
 
 const User = mongoose.model("User", userSchema);
