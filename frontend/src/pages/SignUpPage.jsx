@@ -39,19 +39,16 @@ const SignUpPage = () => {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
-      {/* Left Section */}
       <div
         className="flex flex-col justify-center items-center p-6 sm:p-12 bg-gradient-to-br
        from-base-100 via-base-100 to-base-200 relative overflow-hidden"
       >
-        {/* Animated background elements */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-20 right-10 w-72 h-72 bg-secondary rounded-full blur-3xl animate-pulse" />
         </div>
 
         <div className="w-full max-w-md space-y-8 relative z-10">
-          {/* Header */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-4 group">
               <div className="size-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-secondary/30 transition-all duration-300 shadow-lg">
@@ -70,8 +67,6 @@ const SignUpPage = () => {
               </div>
             </div>
           </div>
-
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="form-control">
               <label className="label">
@@ -169,7 +164,6 @@ const SignUpPage = () => {
             </button>
           </form>
 
-          {/* Sign in link */}
           <div className="text-center pt-4">
             <p className="text-base-content/70">
               Already have an account?{" "}
@@ -184,7 +178,6 @@ const SignUpPage = () => {
         </div>
       </div>
 
-      {/* Right Section */}
 
       <AuthImagePattern
         title="Join our Community"
