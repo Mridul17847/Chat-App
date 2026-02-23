@@ -28,7 +28,6 @@ const ProfilePage = () => {
             <p className="mt-2">Your profile information</p>
           </div>
 
-          {/* Profile Picture */}
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <img
