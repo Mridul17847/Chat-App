@@ -1,15 +1,11 @@
 const AuthImagePattern = ({ title, subtitle }) => {
   return (
     <div className="hidden lg:flex items-center justify-center bg-gradient-to-br from-base-300 via-base-200 to-base-300 p-12 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-40 h-40 bg-primary rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary rounded-full blur-3xl animate-pulse" />
       </div>
-
-      {/* Content */}
       <div className="max-w-md text-center relative z-10">
-        {/* Decorative grid */}
         <div className="grid grid-cols-3 gap-4 mb-12">
           {[...Array(9)].map((_, i) => (
             <div
@@ -26,8 +22,6 @@ const AuthImagePattern = ({ title, subtitle }) => {
             />
           ))}
         </div>
-
-        {/* Text content */}
         <div className="space-y-4">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             {title}
@@ -37,7 +31,6 @@ const AuthImagePattern = ({ title, subtitle }) => {
           </p>
         </div>
 
-        {/* Additional decorative elements */}
         <div className="mt-8 flex justify-center gap-2">
           {[...Array(3)].map((_, i) => (
             <div
