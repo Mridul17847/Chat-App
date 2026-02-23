@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1); // 1 = email, 2 = OTP + password
+  const [step, setStep] = useState(1); 
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [password, setPassword] = useState("");
@@ -17,7 +17,6 @@ const ForgotPasswordPage = () => {
 
   const otpRefs = useRef([]);
 
-  // Step 1: Send OTP
   const handleSendOtp = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -34,8 +33,6 @@ const ForgotPasswordPage = () => {
       setIsSubmitting(false);
     }
   };
-
-  // Step 2: Verify OTP + Reset Password
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
@@ -70,22 +67,19 @@ const ForgotPasswordPage = () => {
     }
   };
 
-  // Handle OTP input
   const handleOtpChange = (index, value) => {
-    if (!/^\d*$/.test(value)) return; // Only allow digits
+    if (!/^\d*$/.test(value)) return;
 
     const newOtp = [...otp];
-    newOtp[index] = value.slice(-1); // Only keep last digit
+    newOtp[index] = value.slice(-1); 
     setOtp(newOtp);
 
-    // Auto-focus next input
     if (value && index < 5) {
       otpRefs.current[index + 1]?.focus();
     }
   };
 
   const handleOtpKeyDown = (index, e) => {
-    // Move to previous input on backspace if current is empty
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       otpRefs.current[index - 1]?.focus();
     }
@@ -120,7 +114,6 @@ const ForgotPasswordPage = () => {
   return (
     <div className="min-h-screen flex justify-center items-center bg-base-200">
       <div className="bg-base-100 p-8 rounded-lg shadow-lg w-full max-w-md">
-        {/* Header */}
         <div className="text-center mb-6">
           <div className="flex flex-col items-center gap-2 group">
             <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -140,8 +133,6 @@ const ForgotPasswordPage = () => {
             </p>
           </div>
         </div>
-
-        {/* Step 1: Email Form */}
         {step === 1 && (
           <form onSubmit={handleSendOtp} className="space-y-4">
             <div className="form-control">
@@ -180,10 +171,8 @@ const ForgotPasswordPage = () => {
           </form>
         )}
 
-        {/* Step 2: OTP + New Password Form */}
         {step === 2 && (
           <form onSubmit={handleResetPassword} className="space-y-4">
-            {/* OTP Input */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Verification Code</span>
@@ -214,8 +203,6 @@ const ForgotPasswordPage = () => {
                 </button>
               </div>
             </div>
-
-            {/* New Password */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">New Password</span>
@@ -245,8 +232,6 @@ const ForgotPasswordPage = () => {
                 </button>
               </div>
             </div>
-
-            {/* Confirm Password */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Confirm Password</span>
@@ -292,7 +277,6 @@ const ForgotPasswordPage = () => {
               )}
             </button>
 
-            {/* Back button */}
             <button
               type="button"
               className="btn btn-ghost w-full gap-2"
@@ -308,8 +292,6 @@ const ForgotPasswordPage = () => {
             </button>
           </form>
         )}
-
-        {/* Login Link */}
         <div className="text-center mt-4">
           <a href="/login" className="link link-primary text-sm">
             Back to Login
