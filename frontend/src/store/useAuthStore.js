@@ -92,7 +92,6 @@ export const useAuthStore = create((set,get) => ({
 
   if (!authUser) return;
 
-  // prevent duplicate connections
   if (socket?.connected) return;
 
   const newSocket = io(BASE_URL, {
