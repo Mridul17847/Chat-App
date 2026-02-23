@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
-import User from "../models/user.model.js"; // ✅ import user model
+import User from "../models/user.model.js"; 
 
 const app = express();
 const server = http.createServer(app);
@@ -13,8 +13,7 @@ const io = new Server(server, {
   },
 });
 
-// Store online users
-const userSocketMap = {}; // { userId: socketId }
+const userSocketMap = {}; 
 
 export function getReceiverSocketId(userId) {
   return userSocketMap[userId];
@@ -25,25 +24,16 @@ io.on("connection", async (socket) => {
 
   const userId = socket.handshake.query.userId;
 
-  if (userId) {
-    // ✅ Store socket
+  if (userId) 
     userSocketMap[userId] = socket.id;
-
-    // ✅ Join personal room (important for typing)
     socket.join(userId);
-
-    // ✅ Mark user online in DB
+    
     await User.findByIdAndUpdate(userId, {
       isOnline: true,
     });
   }
 
-  // Send updated online users
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
-
-  // ===============================
-  // ✅ TYPING EVENTS
-  // ===============================
 
   socket.on("typing", ({ receiverId }) => {
     io.to(receiverId).emit("typing", {
@@ -57,17 +47,12 @@ io.on("connection", async (socket) => {
     });
   });
 
-  // ===============================
-  // ✅ DISCONNECT
-  // ===============================
-
   socket.on("disconnect", async () => {
     console.log("A user disconnected", socket.id);
 
     if (userId) {
       delete userSocketMap[userId];
 
-      // ✅ Update DB with last seen time
       await User.findByIdAndUpdate(userId, {
         isOnline: false,
         lastSeen: new Date(),
